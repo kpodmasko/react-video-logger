@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@root/*": ["src/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@components/*": ["src/components/*"],
+      "@actions/*": ["src/actions/*"],
+      "@reducers/*": ["src/reducers/*"],
+      "@sagas/*": ["src/sagas/*"],
+      "@store/*": ["src/store/*"],
+      "@utils/*": ["src/utils/*"],
+      "@declarations/*": ["src/declarations/*"]
+    },
+    "jsx": "react",
+    "types": [ "jest", "node", "react", "react-dom" ],
+    "esModuleInterop": true
+  }
+}
