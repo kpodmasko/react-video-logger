@@ -1,0 +1,23 @@
+.spoiler {
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    background: black;
+    color: white;
+    padding: 10px;
+  }
+
+  &__content {
+    display: none;
+    padding: 10px;
+    box-shadow: 0 21px 29px -40px rgba(0, 0, 0, 0.75);
+    margin-bottom: 10px;
+
+    &--open {
+      display: block;
+    }
+  }
+}
