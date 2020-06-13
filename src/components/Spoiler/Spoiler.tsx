@@ -25,21 +25,23 @@ const Spoiler: FC<ISpoilerProps> = (props: ISpoilerProps) => {
 
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
-  const classes = classNames(mainCssClass, className);
-  const contentClasses = classNames(`${mainCssClass}__content`, {
+  const classes: string = classNames(mainCssClass, className);
+  const contentClasses: string = classNames(`${mainCssClass}__content`, {
     [`${mainCssClass}__content--open`]: isOpen,
   });
 
-  const toggleIsOpen = () => setIsOpen((prev) => !prev);
+  const toggleIsOpen = (): void => {
+    setIsOpen((prev) => !prev);
+  };
 
-  const handleClick = useCallback((event: MouseEvent) => {
+  const handleClick = useCallback((event: MouseEvent): void => {
     event.preventDefault();
     event.stopPropagation();
 
     toggleIsOpen();
   }, []);
 
-  const handleKeyPress = useCallback((event: KeyboardEvent) => {
+  const handleKeyPress = useCallback((event: KeyboardEvent): void => {
     event.preventDefault();
     event.stopPropagation();
 

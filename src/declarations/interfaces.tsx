@@ -9,3 +9,7 @@ export interface IVideoConfiguration {
   videoUrl: VideoURL;
   logUrl: LogURL;
 }
+
+export interface IVideoPlayerInfo {
+  time: number;
+}

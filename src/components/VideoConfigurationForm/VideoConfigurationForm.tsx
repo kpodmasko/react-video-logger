@@ -20,10 +20,10 @@ const VideoConfigurationForm: FC<IVideoConfigurationFromProps> = (
   const videoRef = useRef<HTMLInputElement>(null);
   const logRef = useRef<HTMLInputElement>(null);
 
-  const classes = classNames(mainCssClass, className);
+  const classes: string = classNames(mainCssClass, className);
 
   const handleSubmit = useCallback(
-    (event: FormEvent) => {
+    (event: FormEvent): void => {
       event.preventDefault();
       event.stopPropagation();
 
@@ -42,9 +42,6 @@ const VideoConfigurationForm: FC<IVideoConfigurationFromProps> = (
       if (onSubmit) {
         onSubmit(videoConfiguration);
       }
-
-      videoRef.current.value = "";
-      logRef.current.value = "";
     },
     [onSubmit]
   );
