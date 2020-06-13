@@ -1,3 +1,7 @@
-div {
-  color: rebeccapurple;
+.video-configuration-spoiler {
+  .spoiler__label,
+  .video-configuration-form__submit {
+    background: rgb(30, 144, 255);
+    border: none;
+  }
 }

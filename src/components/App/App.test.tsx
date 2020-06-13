@@ -1,12 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-import App from "@components/App";
+import App from "@components/App/index";
 
-describe("init test", () => {
-  it("works fine", () => {
+describe("App", () => {
+  it("renders without error", () => {
     shallow(<App />);
-
-    expect(true).toBe(true);
   });
 });
