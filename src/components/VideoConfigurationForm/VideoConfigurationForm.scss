@@ -1,0 +1,26 @@
+.video-configuration-form {
+  &__layout {
+    display: flex;
+    margin-bottom: 10px;
+    flex-direction: column;
+  }
+
+  &__layout:last-child {
+    margin-bottom: 0;
+  }
+
+  &__label {
+    margin-bottom: 10px;
+  }
+
+  &__input {
+    padding: 10px;
+  }
+
+  &__submit {
+    padding: 10px;
+    margin-left: auto;
+    background: black;
+    color: white;
+  }
+}

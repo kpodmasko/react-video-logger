@@ -4,5 +4,9 @@ export type ReactNode =
   | ReactChild
   | ReactFragment
   | ReactPortal
+  | Element
   | boolean
   | null;
+
+export type VideoURL = string;
+export type LogURL = string;
