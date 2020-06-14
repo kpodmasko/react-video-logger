@@ -1,11 +1,4 @@
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Spoiler from "@components/Spoiler";
@@ -17,14 +10,13 @@ import Error from "@components/Error";
 import Loader from "@components/Loader";
 import {
   LogInfo,
-  LogsURL,
   Time,
   VideoConfiguration,
   VideoPlayerInfo,
-  VideoURL,
 } from "@declarations/types";
 import { getLogs } from "@actions/LogsActions";
 import { error as errorActions } from "@actions/ErrorActions";
+import { videoConfiguration as videoConfigurationActions } from "@actions/VideoConfigurationActions";
 import selectAppState from "@utils/selectors";
 
 import "./App.scss";
@@ -33,36 +25,30 @@ const mainCssClass = "app";
 
 // TODO: fix: there is an error (At least one item is required)
 const App: FC = () => {
-  // TODO: think maybe replace to useReducer/redux
-  const [videoUrl, setVideoUrl] = useState<VideoURL>(
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-  );
-  const [logsUrl, setLogsUrl] = useState<LogsURL>(
-    "http://www.mocky.io/v2/5e60c5f53300005fcc97bbdd"
-  );
-  const [updateInterval, setUpdateInterval] = useState<Time>(10);
   const [videoCurrentTime, setVideoCurrentTime] = useState<Time>(0);
 
   const newDirectCurrentTime = useRef<Time>(null);
 
   const dispatch = useDispatch();
 
-  const videoConfiguration = useMemo(
-    (): VideoConfiguration => ({ videoUrl, logsUrl, updateInterval }),
-    [videoUrl, logsUrl, updateInterval]
+  const { logs, error, loader, videoConfiguration } = useSelector(
+    selectAppState
   );
-
-  const { logs, error, loader } = useSelector(selectAppState);
+  const { logsUrl, videoUrl, updateInterval } = videoConfiguration;
 
   const handleVideoConfigurationSubmit = useCallback(
     (videoConfiguration: VideoConfiguration): void => {
       const { videoUrl, logsUrl, updateInterval } = videoConfiguration;
 
-      setVideoUrl(videoUrl);
-      setLogsUrl(logsUrl);
-      setUpdateInterval(updateInterval);
+      dispatch(
+        videoConfigurationActions.setProps({
+          videoUrl,
+          logsUrl,
+          updateInterval,
+        })
+      );
     },
-    []
+    [dispatch]
   );
 
   const handleVideoPlayerTimeUpdate = useCallback(
