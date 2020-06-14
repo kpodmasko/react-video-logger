@@ -6,7 +6,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import orderBy from "lodash/orderBy";
 import { useDispatch, useSelector } from "react-redux";
 
 import Spoiler from "@components/Spoiler";
@@ -18,14 +17,12 @@ import Error from "@components/Error";
 import Loader from "@components/Loader";
 import {
   LogInfo,
-  LogsTableKey,
   LogsURL,
   Time,
   VideoConfiguration,
   VideoPlayerInfo,
   VideoURL,
 } from "@declarations/types";
-import { SortDirection } from "@declarations/enums";
 import { getLogs } from "@actions/LogsActions";
 import { error as errorActions } from "@actions/ErrorActions";
 import selectAppState from "@utils/selectors";
@@ -45,10 +42,6 @@ const App: FC = () => {
   );
   const [updateInterval, setUpdateInterval] = useState<Time>(10);
   const [videoCurrentTime, setVideoCurrentTime] = useState<Time>(0);
-  const [sortKey, setSortKey] = useState<LogsTableKey>("formattedBegin");
-  const [sortDirection, setSortDirection] = useState<SortDirection>(
-    SortDirection.ASC
-  );
 
   const newDirectCurrentTime = useRef<Time>(null);
 
@@ -60,9 +53,6 @@ const App: FC = () => {
   );
 
   const { logs, error, loader } = useSelector(selectAppState);
-  const sortedLogs = useMemo(() => {
-    return orderBy(logs, [sortKey], [sortDirection]);
-  }, [logs, sortDirection, sortKey]);
 
   const handleVideoConfigurationSubmit = useCallback(
     (videoConfiguration: VideoConfiguration): void => {
@@ -92,21 +82,6 @@ const App: FC = () => {
     newDirectCurrentTime.current = begin;
     setVideoCurrentTime(begin);
   }, []);
-
-  const handleLogTableHeaderClick = useCallback(
-    (dataKey: LogsTableKey): void => {
-      if (dataKey === sortKey) {
-        setSortDirection(
-          sortDirection === SortDirection.ASC
-            ? SortDirection.DESC
-            : SortDirection.ASC
-        );
-      } else {
-        setSortKey(dataKey);
-      }
-    },
-    [sortKey, sortDirection]
-  );
 
   const handleErrorClose = useCallback((): void => {
     dispatch(errorActions.removeError());
@@ -147,11 +122,7 @@ const App: FC = () => {
       </div>
       {logs?.length ? (
         <div className={`${mainCssClass}__logs-table-container`}>
-          <LogsTable
-            logs={sortedLogs}
-            onRowClick={handleLogTableRowClick}
-            onHeaderClick={handleLogTableHeaderClick}
-          />
+          <LogsTable logs={logs} onRowClick={handleLogTableRowClick} />
         </div>
       ) : null}
       <footer className={`${mainCssClass}__footer`}>
