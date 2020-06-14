@@ -24,6 +24,7 @@ import "./App.scss";
 const mainCssClass = "app";
 
 // TODO: fix: there is an error (At least one item is required)
+// TODO: enable only for wide screens
 const App: FC = () => {
   const [videoCurrentTime, setVideoCurrentTime] = useState<Time>(0);
 
