@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 
-import Spoiler from "@components/Spoiler";
+import Spoiler from "@components/Spoiler/index";
 import { mainCssClass } from "@components/Spoiler/Spoiler";
 
 describe("Spoiler", () => {

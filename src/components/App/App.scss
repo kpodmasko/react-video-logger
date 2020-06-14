@@ -1,9 +1,29 @@
-.video-configuration-spoiler {
-  .spoiler__label,
-  .video-configuration-form__submit {
-    background: rgb(30, 144, 255);
-    border: none;
+$mainColor: rgb(30, 144, 255);
+
+.app {
+  &__video-configuration-spoiler,
+  &__video-logger-container,
+  &__logs-table-container {
+    margin-bottom: 50px;
   }
 
-  margin-bottom: 50px;
+  &__video-configuration-spoiler {
+    .spoiler__label,
+    .video-configuration-form__submit {
+      background: $mainColor;
+      border: none;
+    }
+  }
+
+  &__video-logger-container,
+  &__logs-table-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__footer {
+    background: $mainColor;
+    color: white;
+    padding: 10px;
+  }
 }

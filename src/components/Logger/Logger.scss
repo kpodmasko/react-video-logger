@@ -1,0 +1,12 @@
+.logger {
+  position: relative;
+
+  &__overlay {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    overflow: hidden;
+  }
+}

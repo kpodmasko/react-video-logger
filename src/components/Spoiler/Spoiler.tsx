@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 import { IBaseProps } from "@declarations/interfaces";
+import { Classes } from "@declarations/types";
 
 import "./Spoiler.scss";
 
@@ -25,8 +26,8 @@ const Spoiler: FC<ISpoilerProps> = (props: ISpoilerProps) => {
 
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
-  const classes: string = classNames(mainCssClass, className);
-  const contentClasses: string = classNames(`${mainCssClass}__content`, {
+  const classes: Classes = classNames(mainCssClass, className);
+  const contentClasses: Classes = classNames(`${mainCssClass}__content`, {
     [`${mainCssClass}__content--open`]: isOpen,
   });
 
