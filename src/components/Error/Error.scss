@@ -1,0 +1,30 @@
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+
+  &__body {
+    color: red;
+    width: 400px;
+    height: 250px;
+    background: white;
+    padding: 10px;
+    word-break: break-all;
+  }
+
+  &__close-wrapper {
+    text-align: right;
+    margin-bottom: 10px;
+  }
+
+  &__close {
+    cursor: pointer;
+  }
+}
