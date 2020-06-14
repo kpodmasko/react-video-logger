@@ -18,7 +18,7 @@ export const mainCssClass = "logs-table";
 
 // TODO: add tests
 // TODO: think about beauty
-
+// TODO: add sort icons
 const LogsTable: FC<ILogsTableProps> = (props: ILogsTableProps) => {
   const { logs, className, onRowClick } = props;
 
@@ -40,6 +40,10 @@ const LogsTable: FC<ILogsTableProps> = (props: ILogsTableProps) => {
   const handleRowClick = useCallback(
     (eventCallback): void => {
       const rowData: LogInfo = eventCallback.rowData;
+      const event: Event = eventCallback.event;
+
+      event.preventDefault();
+      event.stopPropagation();
 
       if (onRowClick) {
         onRowClick(rowData);
@@ -51,6 +55,10 @@ const LogsTable: FC<ILogsTableProps> = (props: ILogsTableProps) => {
   const handleHeaderClick = useCallback(
     (eventCallback): void => {
       const dataKey: LogsTableKey = eventCallback.dataKey;
+      const event: Event = eventCallback.event;
+
+      event.preventDefault();
+      event.stopPropagation();
 
       if (dataKey === sortKey) {
         setSortDirection(

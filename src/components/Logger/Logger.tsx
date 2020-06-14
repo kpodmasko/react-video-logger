@@ -18,8 +18,7 @@ import "./Logger.scss";
 
 interface ILoggerProps extends IBaseProps {
   logs: Array<LogInfo>;
-  // expects only 1 child to calc logger width and height
-  children: ReactChild | ReactElement | null;
+  children: ReactChild | ReactElement | null; // expects only 1 child to calc logger width and height
   currentTime: Time;
 }
 
@@ -52,7 +51,7 @@ const Logger: FC<ILoggerProps> = (props: ILoggerProps) => {
   }, []);
 
   useEffect(() => {
-    const loggerChildInstance =
+    const loggerChildInstance: Element =
       loggerSourceWrapperRef.current?.firstElementChild;
 
     if (!loggerChildInstance) {
@@ -70,14 +69,12 @@ const Logger: FC<ILoggerProps> = (props: ILoggerProps) => {
   }, [children, handleResize]);
 
   useEffect(() => {
-    const canvas = loggerOverlayRef.current;
-    const context = canvas.getContext("2d");
+    const canvas: HTMLCanvasElement = loggerOverlayRef.current;
+    const context: CanvasRenderingContext2D = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     logs?.forEach(({ zone, begin, end }) => {
-      // if active log
       if (begin <= currentTime && currentTime <= end) {
-        // draw rectangle
         const { top, left, width, height } = zone;
 
         context.beginPath();

@@ -26,8 +26,7 @@ const VideoPlayer: FC<IVideoPlayerProps> = (props: IVideoPlayerProps) => {
   } = props;
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  // for time updating is not used native "timeupdate" event as need to set interval for updating
-  const videoWatcher = useRef<NodeJS.Timer>(null);
+  const videoWatcher = useRef<NodeJS.Timer>(null); // for time updating is not used native "timeupdate" event as need to set interval for updating
 
   const classes: Classes = classNames(mainCssClass, className);
 
@@ -55,8 +54,8 @@ const VideoPlayer: FC<IVideoPlayerProps> = (props: IVideoPlayerProps) => {
   }, [stopVideoWatcher]);
 
   const handleTimeUpdate = useCallback((): void => {
-    // trigger when video is paused and time changed
     if (!videoWatcher.current) {
+      // triggers only when video is paused and time is changed
       triggerTimeUpdate();
     }
   }, [triggerTimeUpdate]);
@@ -71,8 +70,7 @@ const VideoPlayer: FC<IVideoPlayerProps> = (props: IVideoPlayerProps) => {
     <div className={classes}>
       <video
         controls={!!videoUrl}
-        // remount video when videoUrl is changed
-        key={videoUrl}
+        key={videoUrl} // remount video when videoUrl is changed
         onTimeUpdate={handleTimeUpdate}
         onPlay={handlePlay}
         onPause={handlePause}

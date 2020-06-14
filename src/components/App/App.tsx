@@ -25,6 +25,8 @@ const mainCssClass = "app";
 
 // TODO: fix: there is an error (At least one item is required)
 // TODO: enable only for wide screens
+// TODO: activeLogs to App
+// TODO: check for typescript after redux
 const App: FC = () => {
   const [videoCurrentTime, setVideoCurrentTime] = useState<Time>(0);
 
@@ -64,8 +66,8 @@ const App: FC = () => {
   const handleLogTableRowClick = useCallback((rowData: LogInfo): void => {
     const { begin } = rowData;
 
-    // when row click is clicked need to change the video time ONCE as if implement
-    // fully controlled state for current time video will be lagging because of amount of rerenders
+    // when row click is clicked need to change the video time ONCE. Only ONCE as if implement
+    // fully controlled state for current time, video will be lagging because of amount of rerenders
     newDirectCurrentTime.current = begin;
     setVideoCurrentTime(begin);
   }, []);
@@ -76,9 +78,8 @@ const App: FC = () => {
 
   useEffect((): void => {
     newDirectCurrentTime.current = null;
-    // after render (after current time change) disable direct change
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newDirectCurrentTime.current]);
+  }, [newDirectCurrentTime.current]); // after render (after current time change) disable direct change
 
   useEffect((): void => {
     dispatch(getLogs.request(logsUrl));
