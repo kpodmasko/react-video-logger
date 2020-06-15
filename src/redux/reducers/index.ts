@@ -1,12 +1,12 @@
-import { combineReducers } from "redux";
+import { combineReducers, Reducer } from "redux";
 
 import LogsReducer from "@reducers/LogsReducer";
 import ErrorReducer from "@reducers/ErrorReducer";
 import LoaderReducer from "@reducers/LoaderReducer";
 import VideoConfigurationReducer from "@reducers/VideoConfigurationReducer";
+import { StoreState } from "@declarations/types";
 
-// TODO: enable typescript
-const rootReducer = combineReducers({
+const rootReducer: Reducer<StoreState, never> = combineReducers({
   logs: LogsReducer,
   error: ErrorReducer,
   loader: LoaderReducer,

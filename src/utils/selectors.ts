@@ -1,14 +1,15 @@
 import { createSelector } from "reselect";
 
-// TODO: enable typescript
+import { StoreState } from "@declarations/types";
 
-const selectLogs = (state) => state.logs;
+const selectLogs = (state: StoreState) => state.logs;
 
-const selectError = (state) => state.error;
+const selectError = (state: StoreState) => state.error;
 
-const selectLoader = (state) => state.loader;
+const selectLoader = (state: StoreState) => state.loader;
 
-const selectVideoConfiguration = (state) => state.videoConfiguration;
+const selectVideoConfiguration = (state: StoreState) =>
+  state.videoConfiguration;
 
 const selectAppState = createSelector(
   [selectLogs, selectError, selectLoader, selectVideoConfiguration],

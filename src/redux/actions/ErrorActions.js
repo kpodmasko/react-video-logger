@@ -1,6 +1,5 @@
 import { createActions } from "redux-actions";
 
-// TODO: enable typescript
 const errorActionsMap = {
   error: {
     SAVE_ERROR: undefined,

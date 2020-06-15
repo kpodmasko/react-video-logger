@@ -12,7 +12,6 @@ const composeEnhancers = composeWithDevTools({
 
 const sagaMiddleware = createSageMiddleware();
 
-// TODO: enable typescript
 const store = createStore(
   rootReducer,
   {},

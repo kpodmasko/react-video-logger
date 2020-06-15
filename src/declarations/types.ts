@@ -26,6 +26,10 @@ export type Size = number;
 
 export type LogId = string | number;
 
+export type Error = string | null;
+
+export type Loader = boolean;
+
 export type VideoConfiguration = {
   videoUrl: VideoURL;
   logsUrl: LogsURL;
@@ -55,3 +59,14 @@ export type LogInfo = {
 };
 
 export type LogsTableKey = string;
+
+export type StoreState = {
+  logs: Array<LogInfo>;
+  error: Error;
+  loader: Loader;
+  videoConfiguration: VideoConfiguration;
+};
+
+export type ServerResponse = {
+  data?: Array<LogInfo>;
+};
