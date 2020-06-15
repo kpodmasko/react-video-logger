@@ -10,7 +10,6 @@ import "./Loader.scss";
 
 export const mainCssClass = "loader";
 
-// TODO: add tests
 const Loader: FC<IBaseProps> = (props: IBaseProps) => {
   const { className } = props;
 
