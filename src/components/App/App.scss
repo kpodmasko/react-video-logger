@@ -21,6 +21,13 @@ $mainColor: rgb(30, 144, 255);
     justify-content: center;
   }
 
+  &__logs-table {
+    .logs-table__row--active {
+      background: $mainColor;
+      color: white;
+    }
+  }
+
   &__footer {
     background: $mainColor;
     color: white;

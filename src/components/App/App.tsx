@@ -1,4 +1,11 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Spoiler from "@components/Spoiler";
@@ -9,6 +16,7 @@ import LogsTable from "@components/LogsTable";
 import Error from "@components/Error";
 import Loader from "@components/Loader";
 import {
+  LogId,
   LogInfo,
   Time,
   VideoConfiguration,
@@ -25,7 +33,6 @@ const mainCssClass = "app";
 
 // TODO: fix: there is an error (At least one item is required)
 // TODO: enable only for wide screens
-// TODO: activeLogs to App
 // TODO: check for typescript after redux
 const App: FC = () => {
   const [videoCurrentTime, setVideoCurrentTime] = useState<Time>(0);
@@ -37,6 +44,17 @@ const App: FC = () => {
   const { logs, error, loader, videoConfiguration } = useSelector(
     selectAppState
   );
+
+  const activeLogs: Array<LogInfo> = useMemo((): Array<LogInfo> => {
+    return logs.filter(
+      ({ begin, end }) => begin <= videoCurrentTime && videoCurrentTime <= end
+    );
+  }, [videoCurrentTime, logs]);
+
+  const activeLogsIds: Array<LogId> = useMemo((): Array<LogId> => {
+    return activeLogs.map((log) => log.id);
+  }, [activeLogs]);
+
   const { logsUrl, videoUrl, updateInterval } = videoConfiguration;
 
   const handleVideoConfigurationSubmit = useCallback(
@@ -99,7 +117,7 @@ const App: FC = () => {
       {error && <Error onClose={handleErrorClose}>{error}</Error>}
       {loader && <Loader />}
       <div className={`${mainCssClass}__video-logger-container`}>
-        <Logger logs={logs} currentTime={videoCurrentTime}>
+        <Logger logs={activeLogs} currentTime={videoCurrentTime}>
           <VideoPlayer
             videoUrl={videoUrl}
             onTimeUpdate={handleVideoPlayerTimeUpdate}
@@ -110,7 +128,12 @@ const App: FC = () => {
       </div>
       {logs?.length ? (
         <div className={`${mainCssClass}__logs-table-container`}>
-          <LogsTable logs={logs} onRowClick={handleLogTableRowClick} />
+          <LogsTable
+            className={`${mainCssClass}__logs-table`}
+            logs={logs}
+            activeLogsIds={activeLogsIds}
+            onRowClick={handleLogTableRowClick}
+          />
         </div>
       ) : null}
       <footer className={`${mainCssClass}__footer`}>

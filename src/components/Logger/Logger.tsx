@@ -73,16 +73,14 @@ const Logger: FC<ILoggerProps> = (props: ILoggerProps) => {
     const context: CanvasRenderingContext2D = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    logs?.forEach(({ zone, begin, end }) => {
-      if (begin <= currentTime && currentTime <= end) {
-        const { top, left, width, height } = zone;
+    logs?.forEach(({ zone }) => {
+      const { top, left, width, height } = zone;
 
-        context.beginPath();
-        context.rect(left, top, width, height);
-        context.lineWidth = 15;
-        context.strokeStyle = "green";
-        context.stroke();
-      }
+      context.beginPath();
+      context.rect(left, top, width, height);
+      context.lineWidth = 15;
+      context.strokeStyle = "green";
+      context.stroke();
     });
   }, [logs, currentTime]);
 
