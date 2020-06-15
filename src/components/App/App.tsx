@@ -34,7 +34,6 @@ import "./App.scss";
 
 const mainCssClass = "app";
 
-// TODO: fix: there is an error (At least one item is required)
 // TODO: check for typescript after redux
 const App: FC = () => {
   const [videoCurrentTime, setVideoCurrentTime] = useState<Time>(0); // is not in redux for optimization reasons

@@ -42,7 +42,6 @@ const Logger: FC<ILoggerProps> = (props: ILoggerProps) => {
 
   const handleResize = useCallback((element: HTMLElement) => {
     const { offsetWidth: width, offsetHeight: height } = element;
-
     setSizes({
       width,
       height,
@@ -61,11 +60,9 @@ const Logger: FC<ILoggerProps> = (props: ILoggerProps) => {
     resizeListener.listenTo(loggerChildInstance, handleResize);
 
     return () => {
-      if (resizeListener) {
-        resizeListener.uninstall();
-      }
+      resizeListener.uninstall(loggerChildInstance);
     };
-  }, [children, handleResize]);
+  }, [handleResize]);
 
   useEffect(() => {
     const canvas: HTMLCanvasElement = loggerOverlayRef.current;
