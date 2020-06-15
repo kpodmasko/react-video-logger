@@ -28,6 +28,14 @@ $mainColor: rgb(30, 144, 255);
     }
   }
 
+  &__wide-error {
+    padding: 10px;
+  }
+
+  &__wide-error-icon {
+    margin-right: 10px;
+  }
+
   &__footer {
     background: $mainColor;
     color: white;

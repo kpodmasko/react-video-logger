@@ -7,6 +7,8 @@ import React, {
   useState,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 import Spoiler from "@components/Spoiler";
 import VideoPlayer from "@components/VideoPlayer";
@@ -26,16 +28,17 @@ import { getLogs } from "@actions/LogsActions";
 import { error as errorActions } from "@actions/ErrorActions";
 import { videoConfiguration as videoConfigurationActions } from "@actions/VideoConfigurationActions";
 import selectAppState from "@utils/selectors";
+import { checkIsWide } from "@utils/helpers";
 
 import "./App.scss";
 
 const mainCssClass = "app";
 
 // TODO: fix: there is an error (At least one item is required)
-// TODO: enable only for wide screens
 // TODO: check for typescript after redux
 const App: FC = () => {
   const [videoCurrentTime, setVideoCurrentTime] = useState<Time>(0); // is not in redux for optimization reasons
+  const [isWide, setIsWide] = useState<boolean>(true);
 
   const newDirectCurrentTime = useRef<Time>(null);
 
@@ -96,6 +99,10 @@ const App: FC = () => {
     dispatch(errorActions.removeError());
   }, [dispatch]);
 
+  const handleResize = useCallback((): void => {
+    setIsWide(checkIsWide());
+  }, []);
+
   useEffect((): void => {
     newDirectCurrentTime.current = null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -105,7 +112,17 @@ const App: FC = () => {
     dispatch(getLogs.request(logsUrl));
   }, [dispatch, logsUrl]);
 
-  return (
+  useEffect(() => {
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize]);
+
+  return isWide ? (
     <>
       <Spoiler
         label="Video configuration"
@@ -142,6 +159,15 @@ const App: FC = () => {
         <span>Konstantin Podmasko</span>
       </footer>
     </>
+  ) : (
+    <p className={`${mainCssClass}__wide-error`}>
+      <FontAwesomeIcon
+        icon={faExclamationTriangle}
+        className={`${mainCssClass}__wide-error-icon`}
+      />
+      Sorry, but we can not run this application because you don`t have enough
+      screen width.
+    </p>
   );
 };
 
