@@ -66,6 +66,14 @@ const VideoPlayer: FC<IVideoPlayerProps> = (props: IVideoPlayerProps) => {
     }
   }, [directCurrentTime]);
 
+  useEffect(() => {
+    // is video player suddenly unmounted it will stop interval
+    // for example, from wide screen to small screen in devtools
+    return () => {
+      stopVideoWatcher();
+    };
+  }, [stopVideoWatcher]);
+
   return (
     <div className={classes}>
       <video
