@@ -30,7 +30,6 @@ type CanvasSizes = {
 export const mainCssClass = "logger";
 
 // TODO: add tests
-// TODO: think about active logs replacing to App
 const Logger: FC<ILoggerProps> = (props: ILoggerProps) => {
   const { className, logs, children, currentTime } = props;
 

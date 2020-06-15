@@ -15,7 +15,6 @@ interface IErrorProps extends IBaseProps {
 }
 
 // TODO: add tests
-// TODO: think about beauty
 const Error: FC<IErrorProps> = (props: IErrorProps) => {
   const { className, children, onClose } = props;
 

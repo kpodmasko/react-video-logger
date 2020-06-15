@@ -18,8 +18,6 @@ interface ILogsTableProps extends IBaseProps {
 export const mainCssClass = "logs-table";
 
 // TODO: add tests
-// TODO: think about beauty
-// TODO: add sort icons
 const LogsTable: FC<ILogsTableProps> = (props: ILogsTableProps) => {
   const { logs, className, onRowClick, activeLogsIds } = props;
 
