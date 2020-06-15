@@ -11,7 +11,7 @@ import React, {
 import erd from "element-resize-detector";
 import classNames from "classnames";
 
-import { Classes, LogInfo, Size, Time } from "@declarations/types";
+import { Classes, LogInfo, Size } from "@declarations/types";
 import { IBaseProps } from "@declarations/interfaces";
 
 import "./Logger.scss";
@@ -19,7 +19,6 @@ import "./Logger.scss";
 interface ILoggerProps extends IBaseProps {
   logs: Array<LogInfo>;
   children: ReactChild | ReactElement | null; // expects only 1 child to calc logger width and height
-  currentTime: Time;
 }
 
 type CanvasSizes = {
@@ -29,9 +28,8 @@ type CanvasSizes = {
 
 export const mainCssClass = "logger";
 
-// TODO: add tests
 const Logger: FC<ILoggerProps> = (props: ILoggerProps) => {
-  const { className, logs, children, currentTime } = props;
+  const { className, logs, children } = props;
 
   const [sizes, setSizes] = useState<CanvasSizes>({ width: 0, height: 0 });
 
@@ -78,7 +76,7 @@ const Logger: FC<ILoggerProps> = (props: ILoggerProps) => {
       context.strokeStyle = "green";
       context.stroke();
     });
-  }, [logs, currentTime]);
+  }, [logs]);
 
   return (
     <div className={classes}>

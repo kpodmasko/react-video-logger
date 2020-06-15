@@ -135,7 +135,7 @@ const App: FC = () => {
       {error && <Error onClose={handleErrorClose}>{error}</Error>}
       {loader && <Loader />}
       <div className={`${mainCssClass}__video-logger-container`}>
-        <Logger logs={activeLogs} currentTime={videoCurrentTime}>
+        <Logger logs={activeLogs}>
           <VideoPlayer
             videoUrl={videoUrl}
             onTimeUpdate={handleVideoPlayerTimeUpdate}
