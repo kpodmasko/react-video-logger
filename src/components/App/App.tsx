@@ -159,10 +159,10 @@ const App: FC = () => {
       </footer>
     </>
   ) : (
-    <p className={`${mainCssClass}__wide-error`}>
+    <p className={`${mainCssClass}__wide-blocker`}>
       <FontAwesomeIcon
         icon={faExclamationTriangle}
-        className={`${mainCssClass}__wide-error-icon`}
+        className={`${mainCssClass}__wide-blocker-icon`}
       />
       Sorry, but we can not run this application because you don`t have enough
       screen width.
