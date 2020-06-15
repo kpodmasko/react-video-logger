@@ -17,7 +17,6 @@ interface ILogsTableProps extends IBaseProps {
 
 export const mainCssClass = "logs-table";
 
-// TODO: add tests
 const LogsTable: FC<ILogsTableProps> = (props: ILogsTableProps) => {
   const { logs, className, onRowClick, activeLogsIds } = props;
 
@@ -89,7 +88,7 @@ const LogsTable: FC<ILogsTableProps> = (props: ILogsTableProps) => {
     <Table
       headerHeight={40}
       rowHeight={30}
-      rowCount={logs.length}
+      rowCount={logs?.length || 0}
       rowGetter={rowGetter}
       rowClassName={rowClassNameSetter}
       className={classes}
