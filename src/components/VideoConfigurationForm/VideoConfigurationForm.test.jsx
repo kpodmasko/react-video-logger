@@ -25,7 +25,7 @@ describe("VideoConfigurationForm", () => {
   });
 
   it("skips submit when not full form", () => {
-    const wrapper = mount(<VideoConfigurationForm onSubmit={handleSubmit} />);
+    const wrapper = shallow(<VideoConfigurationForm onSubmit={handleSubmit} />);
 
     wrapper.find("button").simulate("submit");
 
