@@ -1,4 +1,9 @@
 .logs-table {
   user-select: none;
   cursor: pointer;
+
+  &__row--active {
+    background: black;
+    color: white;
+  }
 }

@@ -4,13 +4,14 @@ import classNames from "classnames";
 import { Column, Table } from "react-virtualized";
 
 import { IBaseProps } from "@declarations/interfaces";
-import { Classes, LogInfo, LogsTableKey } from "@declarations/types";
+import { Classes, LogId, LogInfo, LogsTableKey } from "@declarations/types";
 import { SortDirection } from "@declarations/enums";
 
 import "./LogsTable.scss";
 
 interface ILogsTableProps extends IBaseProps {
   logs: Array<LogInfo>;
+  activeLogsIds: Array<LogId>;
   onRowClick?: (rowData: LogInfo) => void;
 }
 
@@ -20,7 +21,7 @@ export const mainCssClass = "logs-table";
 // TODO: think about beauty
 // TODO: add sort icons
 const LogsTable: FC<ILogsTableProps> = (props: ILogsTableProps) => {
-  const { logs, className, onRowClick } = props;
+  const { logs, className, onRowClick, activeLogsIds } = props;
 
   const [sortKey, setSortKey] = useState<LogsTableKey>("formattedBegin");
   const [sortDirection, setSortDirection] = useState<SortDirection>(
@@ -29,16 +30,29 @@ const LogsTable: FC<ILogsTableProps> = (props: ILogsTableProps) => {
 
   const classes: Classes = classNames(mainCssClass, className);
 
-  const sortedLogs = useMemo(() => {
-    return orderBy(logs, [sortKey], [sortDirection]);
+  const sortedLogs = useMemo((): Array<LogInfo> => {
+    return orderBy(logs, [sortKey], [sortDirection.toLowerCase()]);
   }, [logs, sortDirection, sortKey]);
 
-  const rowGetter = useCallback(({ index }): LogInfo => sortedLogs[index], [
-    sortedLogs,
-  ]);
+  const rowGetter = useCallback(
+    ({ index }: { index: number }): LogInfo => sortedLogs[index],
+    [sortedLogs]
+  );
+
+  const rowClassNameSetter = useCallback(
+    ({ index }: { index: number }): Classes => {
+      const log: LogInfo | undefined = sortedLogs[index]; // for header index is -1
+      const { id } = log || {};
+
+      return classNames(`${mainCssClass}__row`, {
+        [`${mainCssClass}__row--active`]: id && activeLogsIds.includes(id),
+      });
+    },
+    [sortedLogs, activeLogsIds]
+  );
 
   const handleRowClick = useCallback(
-    (eventCallback): void => {
+    (eventCallback: { rowData: LogInfo; event: Event }): void => {
       const rowData: LogInfo = eventCallback.rowData;
       const event: Event = eventCallback.event;
 
@@ -53,7 +67,7 @@ const LogsTable: FC<ILogsTableProps> = (props: ILogsTableProps) => {
   );
 
   const handleHeaderClick = useCallback(
-    (eventCallback): void => {
+    (eventCallback: { dataKey: LogsTableKey; event: Event }): void => {
       const dataKey: LogsTableKey = eventCallback.dataKey;
       const event: Event = eventCallback.event;
 
@@ -79,11 +93,14 @@ const LogsTable: FC<ILogsTableProps> = (props: ILogsTableProps) => {
       rowHeight={30}
       rowCount={logs.length}
       rowGetter={rowGetter}
+      rowClassName={rowClassNameSetter}
       className={classes}
       width={600}
       height={800}
       onRowClick={handleRowClick}
       onHeaderClick={handleHeaderClick}
+      sortBy={sortKey}
+      sortDirection={sortDirection}
     >
       <Column label="Id" dataKey="id" width={200} />
       <Column label="Begin time" dataKey="formattedBegin" width={200} />
