@@ -14,7 +14,6 @@ interface IErrorProps extends IBaseProps {
   onClose?: () => void;
 }
 
-// TODO: add tests
 const Error: FC<IErrorProps> = (props: IErrorProps) => {
   const { className, children, onClose } = props;
 
