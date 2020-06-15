@@ -35,7 +35,7 @@ const mainCssClass = "app";
 // TODO: enable only for wide screens
 // TODO: check for typescript after redux
 const App: FC = () => {
-  const [videoCurrentTime, setVideoCurrentTime] = useState<Time>(0);
+  const [videoCurrentTime, setVideoCurrentTime] = useState<Time>(0); // is not in redux for optimization reasons
 
   const newDirectCurrentTime = useRef<Time>(null);
 
@@ -45,12 +45,14 @@ const App: FC = () => {
     selectAppState
   );
 
+  // is not in redux for optimization reasons
   const activeLogs: Array<LogInfo> = useMemo((): Array<LogInfo> => {
     return logs.filter(
       ({ begin, end }) => begin <= videoCurrentTime && videoCurrentTime <= end
     );
   }, [videoCurrentTime, logs]);
 
+  // is not in redux for optimization reasons
   const activeLogsIds: Array<LogId> = useMemo((): Array<LogId> => {
     return activeLogs.map((log) => log.id);
   }, [activeLogs]);
