@@ -38,7 +38,7 @@
     "@fortawesome/react-fontawesome": "^0.1.10",
     "@types/react": "^16.9.36",
     "@types/react-dom": "^16.9.8",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "canvas": "^2.6.1",
     "classnames": "^2.2.6",
     "element-resize-detector": "^1.2.1",
